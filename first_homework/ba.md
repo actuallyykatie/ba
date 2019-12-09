@@ -1,15 +1,6 @@
----
-title: "Business Analytics / Hw. 1"
-author: "Ekaterina Skriptsova"
-date: "2019-10-31"
-output:
-  prettydoc::html_pretty:
-    theme: leonids
-    keep_md: true
-    highlight: github
----
-
 # Bank Customer Churn Modeling 
+*author: Ekaterina Skriptsova*  
+*date: 2019-10-31*  
 
 The purpose of this analysis is to examine the data on bank customers from the Halloween BI, Ltd. 🎃 and find out: 
 
@@ -1123,3 +1114,6 @@ The median time for survival (not churning) was estimated as approximately 10 ye
 - [ROC plot code](https://datascienceplus.com/machine-learning-results-one-plot-to-rule-them-all/)
 - [Cox diagnostics](http://www.sthda.com/english/wiki/cox-model-assumptions)
 - [Nice note on churn rate](https://medium.com/swlh/youre-all-calculating-churn-rates-wrong-cbab072cd992); Main purpose: churn rate alone does not tell anything useful, and does not often act as a signal of business’ growth/state.
+
+
+

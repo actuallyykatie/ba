@@ -9,3 +9,5 @@ To answer those questions, you compose a to-do list:
 2) predict churn (variable "Exited") with a logistic regression model, with a confusion matrix and cross-validation to assess model quality; and pick up 2-3 most important factors of churn;
 3) predict churn with a decision tree and compare the accuracy of prediction between logistic regression and a decision tree and pick a more efficient model of the two; 
 4) predict time to churn (variables "Tenure", "Exited").
+
+Result grade: 10/10
