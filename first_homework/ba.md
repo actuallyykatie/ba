@@ -91,7 +91,7 @@ The following output summarizes the information about the available features:
 
 
 The exploration starts by looking at how many customers churn at all.  
-The **churn rate** is **20.4%**, meaning that approximately $20.4\%$ of the customers decided to leave the bank, and $79.6\%$ have stayed.
+The **churn rate** is **20.4%**, meaning that approximately 20.4% of the customers decided to leave the bank, and 79.6\% have stayed.
 
 
 ![](ba_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
@@ -102,8 +102,8 @@ Apart from the main target variable, there are 12 features. The first two relate
 
 So, let's examine other features and check whether churners have some common characteristics by looking how churn rate differs depending on `Gender` and `Geography` (country). 
 
-- Churn rate is $20.4\%$, however, it is higher for customers in Germany: $32.4\%$ of them have churned, comparing to $16.2\%$ and $16.7\%$ in France and Spain respectively (Fig.2)  
-- Among females, the percentage of those who left the bank was by $8.6\%$ higher than for males: $25.1\%$ compared to $16.5\%$ (Fig.3)
+- Churn rate is 20.4%, however, it is higher for customers in Germany: 32.4% of them have churned, comparing to 16.2% and 16.7% in France and Spain respectively (Fig.2)  
+- Among females, the percentage of those who left the bank was by 8.6% higher than for males: 25.1% compared to 16.5% (Fig.3)
 
 ![](ba_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
 
@@ -127,7 +127,7 @@ The `Age` density for those who stayed and churned is different: according to th
 ![](ba_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
 
 
-Let's look at the `Balance` (Fig. 8a & 8b). Both clients with low and high balance ($39\%$ of have $\$0$) are present among the stayed customers. Churned ones also do have some money on their closed bank accounts, while $24.5\%$ of them had zero. #StrangerThings.  
+Let's look at the `Balance` (Fig. 8a & 8b). Both clients with low and high balance (39% of have $0) are present among the stayed customers. Churned ones also do have some money on their closed bank accounts, while 24.5% of them had zero. #StrangerThings.  
 I guess more information should have been added on what exactly does this variable mean and whether the data was obtained at the same time as other labels. Perhaps, there are other causes of accounts' cancellation? Or the `Balance` variable was not updated after the customer left? *(took money -> cancelled -> 0)*  
 
 
@@ -151,7 +151,7 @@ Meanwhile, density of `CreditScore` distribution is more or less the same for bo
 Moving to other attributes about customer’s account: `HasCrCard`, `NumOfProducts` and `IsActiveMember`.  
 The first one seems to be less useful as churn rate does not differ depending on whether the customer holds a credit card with the bank or not (Fig. 10).  
 
-Let’s see how the churn rate changes as the number of bank products the customer is subscribed to *(or uses)* increases. This is a super interesting attribute as clients with 3 or 4 products have higher churn rate compared to the ones with 1-2: $100\%$ of customers with 4 products have churned!  
+Let’s see how the churn rate changes as the number of bank products the customer is subscribed to *(or uses)* increases. This is a super interesting attribute as clients with 3 or 4 products have higher churn rate compared to the ones with 1-2: 100% of customers with 4 products have churned!  
 Unfortunately, it is unknown which products the clients were using, and which ones may cause an increase of churn rate. The bank should carefully review which services have such a high rate and consider introduction of changes. 
 
 According to another plot below (Fig. 12), among active members churn rate is lower. As stated in the data description, the variable `IsActiveMember` of the bank is subjective *"(Subjective, but for the concept)"*, so it is unclear how it was constructed. It would be interesting to see how exactly this feature was obtained and to which extent its definition differs from `Exited`.
@@ -162,8 +162,8 @@ Based on the output below, there were 326 (~3%) customers with 3 and more produc
 By comparing it to the description of entire dataset:  
 
 - the mean age of these clients is higher
-- now there are slighly more females than males: $57\%$ in subset compared to $45\%$ in full dataset  
-- $85\%$ of these clients churned!
+- now there are slighly more females than males: 57% in subset compared to 45% in full dataset  
+- 85% of these clients churned!
 
 Unfortunately, it is impossible to see whether all of them were subscribed to/used the same product, but it may be so. 
 
@@ -205,7 +205,7 @@ Unfortunately, it is impossible to see whether all of them were subscribed to/us
 ##   - Exited: 2 levels: No (n = 46) and Yes (n = 280)
 ```
 
-The next plot shows the associations between continuous data attributes. Almost all variables are not correlated with each other, apart from several combinations that were previously identified as those that may be important for further predictive models: (1) `Balance` and `NumOfProducts`, (2) `Exited` and `Age`, (3) `Exited` and `Balance`. The correlation coefficients between $0.1$ and $0.3$ indicate that there may be small association between these variables.
+The next plot shows the associations between continuous data attributes. Almost all variables are not correlated with each other, apart from several combinations that were previously identified as those that may be important for further predictive models: (1) `Balance` and `NumOfProducts`, (2) `Exited` and `Age`, (3) `Exited` and `Balance`. The correlation coefficients between 0.1$ and 0.3 indicate that there may be small association between these variables.
 
 ![](ba_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
 
@@ -241,7 +241,7 @@ Features were selected using `stepAIC` function which allows comparing several m
 
 
 
-The resulting output shows variables `Geography` (Germany), `Gender` (Male), `Age`, `Balance`, `NumOfProducts`, `CreditScore`, `IsActiveMember` (Yes) have a significant effect on customer staying or exiting, as p-values for these features are $<.005$, meaning that the probability of finding results like this or more extreme, assuming `{variable}` has no effect, is $5\%$. 
+The resulting output shows variables `Geography` (Germany), `Gender` (Male), `Age`, `Balance`, `NumOfProducts`, `CreditScore`, `IsActiveMember` (Yes) have a significant effect on customer staying or exiting, as p-values for these features are <.005, meaning that the probability of finding results like this or more extreme, assuming `{variable}` has no effect, is 5\%. 
 
 
 <table style="border-collapse:collapse; border:none;">
@@ -377,10 +377,10 @@ How well did the model perform? On **train**:
 - "No" (stay) was correctly predicted 6149 times (TN), incorrectly - 1286 (FN)  
 - "Yes" (churn) was correctly predicted in 344 cases (TP), and incorrectly - in 222 (FP)   
 
-The overall accuracy is $81\%$. This is better than simple prediction of the majority class ("No"), as in this case it would have been $79.6\%$. Other important metrics are precision and recall:    
+The overall accuracy is 81%. This is better than simple prediction of the majority class ("No"), as in this case it would have been 79.6%. Other important metrics are precision and recall:    
 
-- Precision shows the ratio of correctly predicted "churned" to the total number of predicted as "churned", meaning that $61\%$ of "Yes" predictions were actually correct ($\frac{344}{344+222}$)    
-- Recall equals 0.21, so $21\%$ of churned customers were identified    
+- Precision shows the ratio of correctly predicted "churned" to the total number of predicted as "churned", meaning that 61% of "Yes" predictions were actually correct (344/(344+222))      
+- Recall equals 0.21, so 21% of churned customers were identified    
 
 
 
@@ -415,9 +415,9 @@ The overall accuracy is $81\%$. This is better than simple prediction of the maj
 
 And how the model is performing with the **test** set?:
 
-- Accuracy equals $81\%$, meaning that the model performs well on the test data too   
-- Precision is $0.6$, meaning if customers are predicted to churn, $60\%$ of them will actually churn  
-- Recall is $0.2$, so the model identified $20\%$ of those who churned  
+- Accuracy equals 81%, meaning that the model performs well on the test data too   
+- Precision is 0.6, meaning if customers are predicted to churn, 60% of them will actually churn  
+- Recall is 0.2, so the model identified 20% of those who churned  
 
 
 
@@ -450,7 +450,7 @@ And how the model is performing with the **test** set?:
 ## 
 ```
 
-The last but important metric in this part is the area under the curve, which is further used for model comparison. Higher the AUC, the better the model is at predicting our classes (perfect classifier has an AUC of 1, while 0.5 - no class separation capacity). Here it equals $0.78$, which is quite good.
+The last but important metric in this part is the area under the curve, which is further used for model comparison. Higher the AUC, the better the model is at predicting our classes (perfect classifier has an AUC of 1, while 0.5 - no class separation capacity). Here it equals 0.78, which is quite good.
 
 
 
@@ -480,16 +480,10 @@ Understanding why model makes this or that decision may be crucial. The plots be
 
 
 
-
-
-
-
-
-
 #### correct predictions ✔️️ 
 
 
-The test set contains 1999 observations. The distribution of `Exited`(referred as `actual`) variable is the same as in full dataset: $79.6\%$ - stayed, $20.4\%$ - exited. The model predicted 1863 observations as retained, and 136 as exited. In total there are 1620 correct answers, and in 379 cases the model was wrong, the accuracy is $\frac{1620}{1999}=81\%$.
+The test set contains 1999 observations. The distribution of `Exited`(referred as `actual`) variable is the same as in full dataset: 79.6% - stayed, 20.4% - exited. The model predicted 1863 observations as retained, and 136 as exited. In total there are 1620 correct answers, and in 379 cases the model was wrong, the accuracy is 1620/1999=81%.
 
 
 ```
@@ -508,7 +502,7 @@ For instance: **(1)** test case 593, a female from Germany aged 44, who's been w
 - is from Germany  
 - is female  
 
-This observation also has age between 37 and 44, which is more representative for cases who stayed. Also, the probability for "yes" label is $0.57$, and is quite close to the threshold of 0.5.
+This observation also has age between 37 and 44, which is more representative for cases who stayed. Also, the probability for "yes" label is 0.57, and is quite close to the threshold of 0.5.
 
 ```
 ##      sample_id        No       Yes actual prediction correct CreditScore
@@ -521,7 +515,7 @@ This observation also has age between 37 and 44, which is more representative fo
 
 ![](ba_files/figure-html/unnamed-chunk-35-1.png)<!-- -->
 
-**(2)** Another example 1616 shows why the model predicted that a person will stay. The probability here is $0.95$, so the model was very sure about the prediction. So, why did it make this decision?   
+**(2)** Another example 1616 shows why the model predicted that a person will stay. The probability here is 0.95, so the model was very sure about the prediction. So, why did it make this decision?   
 For "stay": this person is male, younger than 32, is an active member from France (not Germany).
 
 
@@ -557,7 +551,7 @@ For "stay": this person is male, younger than 32, is an active member from Franc
 
 As shown on the plots below *(scroll down a bit)*, the model made incorrect decisions mostly based on `Age`, `IsActiveMember`, `Gender` in all three randomly selected cases. 
 
-**(1)** Customer with test id 1984 was predicted as stayed, while he actually churned. The probability of "Yes" is $0.34$, of "No" - $0.66$. Why did the model make a mistake? *("stay" instead of "churn")*     
+**(1)** Customer with test id 1984 was predicted as stayed, while he actually churned. The probability of "Yes" is 0.34, of "No" - 0.66. Why did the model make a mistake? *("stay" instead of "churn")*     
 A person was predicted as stayed because he is male and an active member. At the same time, "Churn" was supported by: age higher than 44 & being from Germany.
 
 
@@ -633,7 +627,7 @@ Specification:
 
 
 
-The decision tree seems to perform better than logistic regression in terms of accuracy on the train set: $84.7%$ compared to $81\%$. Both precision and recall have increased: from $0.6$ to $0.75$ and from $0.2$ to $0.37$, which is good. Now the model finds $37\%$ of those from churned class. 
+The decision tree seems to perform better than logistic regression in terms of accuracy on the train set: 84.7% compared to 81%. Both precision and recall have increased: from 0.6 to 0.75 and from 0.2 to 0.37, which is good. Now the model finds 37% of those from churned class. 
 
 
 ```
@@ -665,10 +659,10 @@ The decision tree seems to perform better than logistic regression in terms of a
 ## 
 ```
 
-On **test** set, the accuracy drops by $1\%$ to $83\%$, as well as precision and recall. Still, it is better than logistic regression.    
+On **test** set, the accuracy drops by 1% to 83%, as well as precision and recall. Still, it is better than logistic regression.    
 
-- Precision is $0.68$, so $68\%$ of predicted to churn will actually churn  
-- Recall is $0.33$, meaning the model identified $33\%$ of those who churned  
+- Precision is 0.68, so 68% of predicted to churn will actually churn  
+- Recall is 0.33, meaning the model identified 33% of those who churned  
 
 
 
@@ -710,7 +704,7 @@ On **test** set, the accuracy drops by $1\%$ to $83\%$, as well as precision and
 This first lonely tree seems to be quite complicated in terms of interpretation of visualization as it performed many splits. The first division was based on `Age`, then either by `Geography` (Germany) or by `IsActiveMember`. 
 ![](ba_files/figure-html/unnamed-chunk-47-1.png)<!-- -->
 
-So, let's look at the variable importance (relative). Similary to logistic regression, `Age` is the most important variable, as well as `IsActiveMember`. But at the 3rd place we can wee `NumOfProducts` that looked a bit promising at the EDA stage: churn rate among customers with $\geq3$ products was quite high. Other important variables are `Balance` and `Gender`. 
+So, let's look at the variable importance (relative). Similary to logistic regression, `Age` is the most important variable, as well as `IsActiveMember`. But at the 3rd place we can wee `NumOfProducts` that looked a bit promising at the EDA stage: churn rate among customers with ≥ 3 products was quite high. Other important variables are `Balance` and `Gender`. 
 
 ![](ba_files/figure-html/unnamed-chunk-48-1.png)<!-- -->
 
@@ -765,10 +759,10 @@ Let's finally fit a random forest with variables selected using RFE. What do we 
 ```
 
 
-At first, the accuracy on train is $90\%$, which is better than previous models. Good news are also present in precision and recall:  
+At first, the accuracy on train is 90%, which is better than previous models. Good news are also present in precision and recall:  
 
-- Precision of $0.95$ - most cases predicted as churned will actually churn  
-- Recall - $0.518$, now the model can identify $52\%$ of those from churners class 
+- Precision of 0.95 - most cases predicted as churned will actually churn  
+- Recall - 0.518, now the model can identify 52% of those from churners class 
 
 
 ```
@@ -803,11 +797,11 @@ At first, the accuracy on train is $90\%$, which is better than previous models.
 
 On the test part, the random forest performs well too:   
 
-- Accuracy: $86\%$  
-- Lower precision of $0.80$  
-- Recall equals $0.40$
+- Accuracy: 86%   
+- Lower precision of 0.80    
+- Recall equals 0.40  
 
-The model identifies $40\%$ of churners, and $80\%$ of those predicted to leave the bank actually left the bank. In sum, Random Forest is **better** than the logistic regression model as it showed higher accuracy, better precision and recall.
+The model identifies 40% of churners, and 80% of those predicted to leave the bank actually left the bank. In sum, Random Forest is **better** than the logistic regression model as it showed higher accuracy, better precision and recall.
 
 
 ```
@@ -840,7 +834,7 @@ The model identifies $40\%$ of churners, and $80\%$ of those predicted to leave 
 ```
 
 
-And the last comparison: AUC. Logistic regression had $78.03$, while random forest shows a big improvement to $84.45$! So, this model is the best one for today.
+And the last comparison: AUC. Logistic regression had 78.03, while random forest shows a big improvement to 84.45! So, this model is the best one for today.
 
 
 ```
@@ -866,18 +860,12 @@ Let's take three correct and three wrong predictions, as it was done for logisti
 
 
 
-
-
-
-
-
-
 In all three randomly selected **correct** cases, the model took into account `NumOfProducts`: in case 428 and 803, customers had less than two products. However, the first one was an active member, while second - not. Speaking of case 1334 (who churned), a person had more than two products, was older than 44 and not an active member. 
 ![](ba_files/figure-html/unnamed-chunk-61-1.png)<!-- -->
 
 
 When did the model make a mistake? Actually, all selected observations are quite similar: model predicted that they will stay, but they churned.   
-The main problem was having $\leq2$ products. Which makes sense, as EDA showed that churn rate among those having more than 2 is higher. Other issues are related to whether a client was an active one, and balance.
+The main problem was having ≤ 2 products. Which makes sense, as EDA showed that churn rate among those having more than 2 is higher. Other issues are related to whether a client was an active one, and balance.
 
 ![](ba_files/figure-html/unnamed-chunk-62-1.png)<!-- -->
 
@@ -935,11 +923,11 @@ Now let's fit with categorical covariate and see whether there are differences i
 ```
 
 The following plot presents estimates of survival probability grouped by `Gender`, and the table highlights the number of customers under observation in certain period of time.  
-The p-value in the left corner refers to the p-value of a log rank test *(non-parametric, no assumptions)*, where the $H_0$ is:
+The p-value in the left corner refers to the p-value of a log rank test *(non-parametric, no assumptions)*, where the H0 is:
 
 > No difference between the populations in the probability of churn at any point (curves are identical)
 
-The p-value is $<0.0001$, meaning that there is a difference in survival probabilities for representatives of different `Gender`.
+The p-value is <0.0001, meaning that there is a difference in survival probabilities for representatives of different `Gender`.
 
 
 ![](ba_files/figure-html/unnamed-chunk-67-1.png)<!-- -->
@@ -989,11 +977,11 @@ Significant variables turn out to be: `Age`, `IsActiveMember`, `Geography`, `Gen
 
 
 
-The following model output and forest plot show the hazard ratios from the model for all selected covariates. Values $>1$ indicate an increased risk of churn, while $<1$ mean that this condition decreases it.
+The following model output and forest plot show the hazard ratios from the model for all selected covariates. Values >1 indicate an increased risk of churn, while <1 mean that this condition decreases it.
 
 - Male clients churn 32% slower than the baseline survival rate *(reference: female)*   
 - One additional year of customer's `Age` multiplies the hazard rate by 1.048 (5%) (slight increase of churn)  
-- Customers from Germany churn 1.63 (or 63%) times faster than the baseline *(reference: France)*. Wow! As for Spain, these clients do not churn significantly higher or lower, as the p-value is $0.4$    
+- Customers from Germany churn 1.63 (or 63%) times faster than the baseline *(reference: France)*. Wow! As for Spain, these clients do not churn significantly higher or lower, as the p-value is 0.4     
 - Active member have a lower risk of churn compared to not active ones: decreases by 52% *(reference: not active)*   
 
 
@@ -1060,7 +1048,7 @@ summary(results_full)
 #### oh, assumptions check: proportional hazards
 
 But does the data violate the model assuptions, or everything is fine? The hazard rate of an individual should be relatively constant in time. Here statistical significance is a bad sign, meaning that the feature is violating the assumption (there are time dependent coefficients).   
-As you can see, only covariate `Geography` (Spain) has a p-value lower than $0.05$. `Balance` is quite close to this level as well, but still higher than the significance level. The global test is also not statistically significant. Therefore, we can assume the proportional hazards. 
+As you can see, only covariate `Geography` (Spain) has a p-value lower than 0.05. `Balance` is quite close to this level as well, but still higher than the significance level. The global test is also not statistically significant. Therefore, we can assume the proportional hazards. 
 
 
 ```
@@ -1094,7 +1082,7 @@ According to the models and cases presented in the analysis, the most important 
 
 - `Age`: as age increases, customer becomes more likely to churn
 - `IsActiveMember`: active members churn less
-- `NumOfProducts`: customers with  $\geq3$ products churn more
+- `NumOfProducts`: customers with ≥ 3 products churn more
 - `Geography`: Churn rate among clients from Germany is higher compared to France and Spain
 
 
