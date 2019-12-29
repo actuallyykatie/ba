@@ -199,11 +199,7 @@ Transforming to factors and mapping the levels:
 
 
 Next, the basic statistics of the data, showing the number of (1) factor levels, (2) number of observations in each.   
-What are the main parts here? Well, most of the responses for the selected variables were received from 19-22 y.o., next largest age group - 15-18. The 611 studied in secondary school, 204 - college/bachelor degree. A few with doctorate degree are presented here as well! Most of the respondents have tried smoking (n=424), while 184 are currently doing that, 174 stopped and 201 never tried. What is interesting - 66% consider themselves as social drinkers (is this college life).  
 
-Mostly, young people do not eat just to survive. However, 170 agreed (& strongly) with this statement, and probably represent the audience that we do not want to target as they don't like food that much. Half (496) of the respondents neutrally estimated the *"I live a very healthy lifestyle"*, i.e. neither agreed not disagreed. Though, 231 and 45 agreed and strongly agreed. And these are the ones that better be targeted, I guess!  Healthy lifestylers need heathy food. Good finding: students mostly do feel energetic.  
-
-As for the outcome, the majority agreed that they would happily pay more money for good, quality or healthy food, nice!
 
 
 
@@ -220,16 +216,19 @@ As for the outcome, the majority agreed that they would happily pay more money f
 ##   - Spending on healthy eating: 5 levels: Strongly Disagree (n = 40); Disagree (n = 131); Neutral (n = 279); Agree (n = 317) and Strongly Agree (n = 216)
 ```
 
+What are the main parts here? Well, most of the responses for the selected variables were received from 19-22 y.o., next largest age group - 15-18. The 611 studied in secondary school, 204 - college/bachelor degree. A few with doctorate degree are presented here as well! Most of the respondents have tried smoking (n=424), while 184 are currently doing that, 174 stopped and 201 never tried. What is interesting - 66% consider themselves as social drinkers (is this college life).  
 
-Making the differences more visible:
+
+
+
 
 ![](business_analytics_final_files/figure-html/unnamed-chunk-75-1.png)<!-- -->
 
-
+Mostly, young people do not eat just to survive. However, 170 agreed (& strongly) with this statement, and probably represent the audience that we do not want to target as they don't like food that much. Half (496) of the respondents neutrally estimated the *"I live a very healthy lifestyle"*, i.e. neither agreed not disagreed. Though, 231 and 45 agreed and strongly agreed. And these are the ones that better be targeted, I guess!  Healthy lifestylers need heathy food. Good finding: students mostly do feel energetic.  
 
 ![](business_analytics_final_files/figure-html/unnamed-chunk-76-1.png)<!-- -->
 
-
+As for the outcome, the majority agreed that they would happily pay more money for good, quality or healthy food, nice!  
 
 ![](business_analytics_final_files/figure-html/unnamed-chunk-77-1.png)<!-- -->
 
@@ -252,7 +251,7 @@ The hypotheses behind that are as following:
 
 ![](business_analytics_final_files/figure-html/unnamed-chunk-78-1.png)<!-- -->
 
-For simplicity, split variables into "rather_yes" (agrees) and "rather no" (neutral or disagrees)
+For simplicity, split variables into `"rather_yes"` (agrees) and `"rather no"` (neutral or disagrees)
 
 
 

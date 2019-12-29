@@ -52,7 +52,7 @@ The table presents the name of the variable, the category it falls into and the 
  <thead>
   <tr>
    <th style="text-align:left;"> variable </th>
-   <th style="text-align:left;"> group </th>
+   <th style="text-align:left;"> group   </th>
    <th style="text-align:left;"> meaning </th>
   </tr>
  </thead>
@@ -1128,8 +1128,7 @@ After more thinking and drawing, I came up with the following structure and adde
 
 ### what-if and policy
 
-Now let's examine some variables and "what-if" scenarios. 
-
+Let's examine some variables and "what-if" scenarios. 
 
 
 Consistent with EDA, the highest probability of subscribing a term desposit is for those aged 18-25 & 65-100. 
@@ -1178,20 +1177,18 @@ And without personal loan.
 ##   yes 0.9147056 0.08529437
 ```
 
-
-Starting point for this model is also 0.12.  
-
+ 
 ***
 
-**First situation:** a client aged 18-25, high balance. The probability is 25%, not bad. 
-
+Now a bit more concrete cases with several parameters. 
+Starting point for this model is also 0.12.   
+**First situation:** a client aged 18-25, high balance. The probability of subscription is 25%, not bad. 
 
 ```
 ## [1] 0.2535211
 ```
 
-**Previous outcome** is success? Then the probability is 0.5. 
-
+**Previous outcome** is also success? Then the probability increases to 0.5. 
 
 ```
 ## [1] 0.8
@@ -1210,7 +1207,7 @@ What if a person is middle aged but still with above median balance? Then the pr
 
 ## final policy
 
-Overall, the company should introduce some changes that may influence its performance, according to the previously presented models and tables.  
+Overall, the company should introduce some changes that may influence campaign's performance, according to the previously presented models and tables.  
 
 - Focus more on young people, who start to get involved into the banking sphere and have some money that they can invest into a term deposit. If everything goes well, then, maybe later in life they will take a housing loan in your bank?    
 - Oldest age groups should take more attention as well. They have high balance and showed a high interest in subscribing term deposits.   
@@ -1231,8 +1228,7 @@ The best model in ML section was random forest, showing an AUC of almost 93, whi
 
 
 **policy of subscription rate improvement**     
-The last parts included creation of Bayesian networks in order to conduct some sort of what-if analysis and propose a improvements.  
-The rates may be increased by changing the focus from middle age groups to clients aged 18-25 and 65+, as they mostly do not have loans. The latter also have higher balance, which is more profitable for the bank. Clients for whom the previous campaign was successful subscribed more often as well, meaning that the “successful” customer database should be definitely targeted. Overall, such changes may impove the rates to ~ 0.54 for whom the outcome of previous campaign is unknown.   
+The last parts included creation of Bayesian networks in order to conduct some sort of what-if analysis and propose a improvements. The rates may be increased by changing the focus from middle age groups to clients aged 18-25 and 65+, as they mostly do not have loans. The latter also have higher balance, which is more profitable for the bank. Clients for whom the previous campaign was successful subscribed more often as well, meaning that the “successful” customer database should be definitely targeted. Overall, such changes may impove the rates to ~ 0.54 for whom the outcome of previous campaign is unknown.   
 ``` 
 ## [1] 0.5454545
 ```
@@ -1241,7 +1237,10 @@ The rates may be increased by changing the focus from middle age groups to clien
 
 
 # **references**
-[[1]](https://archive.ics.uci.edu/ml/datasets/Bank+Marketing), [[2]](https://www.investopedia.com/terms/t/termdeposit.asp), [[3]](https://stats.stackexchange.com/questions/12140/conditional-inference-trees-vs-traditional-decision-trees), [[4]](https://www.canstar.com.au/opinions/how-banks-work/)   
+[[1] Bank Marketing Dataset](https://archive.ics.uci.edu/ml/datasets/Bank+Marketing)   
+[[2] Term Deposit Definition](https://www.investopedia.com/terms/t/termdeposit.asp)   
+[[3] Conditional inference trees vs traditional decision trees](https://stats.stackexchange.com/questions/12140/conditional-inference-trees-vs-traditional-decision-trees)   
+[[4] How banks work and make money](https://www.canstar.com.au/opinions/how-banks-work/)   
 
 
 ***
