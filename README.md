@@ -1,4 +1,4 @@
-# ba
+# business analytics 
 Business Analytics course homework assignments
 
 # structure
@@ -21,7 +21,7 @@ Business Analytics course homework assignments
 - [html](http://actuallyykatie.github.io/ba/first_homework/ba.html) 
 
 
-## project 2.1: predicting subscription
+## project 2: predicting subscription
 
 **About:** examine the dataset about the direct phone call marketing campaigns, which aimed to promote term deposits among existing customers by a Portuguese bank from May 2008 to November 2010, and do the following:  
 
@@ -39,12 +39,12 @@ Business Analytics course homework assignments
 
 
 
-## project 2.2: searching for the target group 🎯
+## project 3: searching for the target group 🎯
 
 **About:** analyze the survey among young people and produce recommendations for a start-up company forcusing on the new superfood delivery on two main points: 
 
 > - how to frame the ad campaign?    
-> - who to target with the products?   
+> - whom to target with the products?   
 
 **Data:** [Young People Survey](https://www.kaggle.com/miroslavsabo/young-people-survey)
 
