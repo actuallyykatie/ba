@@ -1,34 +1,34 @@
-# **Business Analytics / Final**
+# **Business Analytics / Final / task 1**
 *author: Ekaterina Skriptsova*  
 *date: 2019-12-21*  
 
 
-
 # **introduction**
 
-In this work the main goal was to analyze the dataset which provides information about the direct phone call marketing campaign by a Portuguese banking institution from May 2008 to November [[1]](https://archive.ics.uci.edu/ml/datasets/Bank+Marketing) and predict whether a client will subscribe a term deposit.    
+The aim of this work is to examine the dataset about the direct phone call marketing campaigns, which aimed to promote term deposits among existing customers by a Portuguese bank from May 2008 to November 2010 [[1]](https://archive.ics.uci.edu/ml/datasets/Bank+Marketing), and do the following:  
 
-> - explain the current situation with subscription rate
-> - create a predictive model
-> - suggest policy for subscription rate increase, and analyze it using the what-if modeling
+> - explain the current situation with subscription rate  
+> - create a predictive model (whether a client will subscribe a term deposit)
+> - suggest policy for subscription rate increase, and analyze it using the what-if modeling  
 
 
-The first section, exploratory data analysis, describes the current situation with subscription rate and identifies possible predictors for client subscribing a term deposit. Next one focuses on several predictive models (two decision trees & random forest), comparing their performance, identifying the most important features, and then applying the best model to 6 randomly selected cases in order to analyze when model makes a correct prediction and when it is mistaken. After that, I constuct a Bayesian Network summarizing the hypotheses proposed in the previous sections and propose a policy for improvement.
+In the first section, exploratory data analysis, I describe the current situation with subscription rate and identify possible predictors for client subscribing a term deposit. Next one focuses on several predictive models (two decision trees & random forest), comparing their performance, identifying the most important features, and then applying the best model to 6 randomly selected cases in order to analyze when model makes a correct prediction and when it is mistaken. After that, I constuct a Bayesian Network summarizing the hypotheses proposed in the previous sections and propose a policy for improvement.
 
-As this is an individual report, here I mostly focus on technical stuff. More detailed interpretations of some aspects are presented in the final one :)
+***
 
 
 # **exploratory data analysis**
 
 What is a term deposit by the way?
 
-> "A term deposit is a fixed-term investment that includes the deposit of money into an account at a financial institution. Term deposit investments usually carry short-term maturities ranging from one month to a few years and will have varying levels of required minimum deposits" [[2]](https://www.investopedia.com/terms/t/termdeposit.asp).
+> A term deposit is a fixed-term investment that includes the deposit of money into an account at a financial institution. Term deposit investments usually carry short-term maturities ranging from one month to a few years and will have varying levels of required minimum deposits.[[2]](https://www.investopedia.com/terms/t/termdeposit.asp)
 
+In more plain words, a client locks his/her money for a certain period, and the bank pays them an interest rate. These money can be used by the bank for various purposes, including lending money to other clients [[3]](https://www.investopedia.com/terms/t/termdeposit.asp). Thus, it is highly important to make customers subscribe for such offers so that the bank will have sufficient amount of capital.
 
-In more plain words, a client locks his/her money for a certain period, and the bank pays them an interest rate. These money can be used by the bank for various purposes, including lending money to other clients [[2]](https://www.investopedia.com/terms/t/termdeposit.asp). Thus, it is highly important to make customers subscribe for such offers so that the bank will have sufficient amount of capital.
 
 ## first steps
 
+### preps
 
 The very first step is to upload the packages & dataset. Then - describe the data.
 
@@ -47,12 +47,11 @@ The dataset contains 17 variables, that provide the following information about 
 The table presents the name of the variable, the category it falls into and the description.
 
 
-
 <table class="table table-striped table-hover table-condensed table-responsive" style="margin-left: auto; margin-right: auto;">
  <thead>
   <tr>
    <th style="text-align:left;"> variable </th>
-   <th style="text-align:left;"> group   </th>
+   <th style="text-align:left;"> group </th>
    <th style="text-align:left;"> meaning </th>
   </tr>
  </thead>
@@ -159,7 +158,6 @@ According to the output, the variables are parsed either as `character` or `nume
 - `poutcome`  
 
 
-
 ```
 ## Classes 'spec_tbl_df', 'tbl_df', 'tbl' and 'data.frame':	45211 obs. of  17 variables:
 ##  $ age      : num  58 44 33 47 33 35 28 42 58 43 ...
@@ -228,7 +226,7 @@ What is the subscription rate of term deposits among the existing customers? Acc
 
 > ~12% of clients have agreed for a term deposit.
 
-![](business_analytics_final_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
+![](business_analytics_final_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
 
 Let's move to the next variables and see in which terms the subscribed clients differ from those who did not.
 
@@ -237,12 +235,12 @@ Let's move to the next variables and see in which terms the subscribed clients d
 
 The socio-demographic features are examined on the following Fig.2-4, depending on whether customer has subscribed. 
 
-- **job**: the subscription rate was the highest among students & retired guys, and the lowest for blue-collars  
+- **Job**: the subscription rate was the highest among students & retired guys, and the lowest for blue-collars  
 - **marital**: among representatives of different marital statuses, the subscription rate is the highest for the single ones   
 - **education**: as for education, percentage of subscribed customers is higher among those with tertiary level, and the lowest for clients with primary
 
 
-![](business_analytics_final_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
+![](business_analytics_final_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
 
 #### age 
 
@@ -253,8 +251,7 @@ Here you can see a half-violin half-dot plot (Fig. 5) showing the distribution a
 
 I further cut age into 6 age groups and calculated the subscription rate within them. As shown on the Fig. 6 & in the table, the highest rate was in the 65-100 (95) age group, followed by 18-25. This is quite consistent with Fig. 2, where the most subscribed were students and retired people.
 
-
-![](business_analytics_final_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
+![](business_analytics_final_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
 
 <table class="table table-striped table-hover table-condensed table-responsive" style="margin-left: auto; margin-right: auto;">
  <thead>
@@ -300,10 +297,14 @@ So, probably `balance` may influence the decision for subscribing a term deposit
 
 As shown on the next Fig. 7-9, most clients who subscribed a deposit have rather positive `balance` level, and both mean & median values are higher for this group.
 
+![](business_analytics_final_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
 
 
-![](business_analytics_final_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
-
+```r
+desc_statby(df, measure.var = "balance", grps = "y")[, c("y", "length", "min", "max" ,"mean", "median", "sd")] %>% 
+  kable(format = "html", escape = F) %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+```
 
 <table class="table table-striped table-hover table-condensed table-responsive" style="margin-left: auto; margin-right: auto;">
  <thead>
@@ -350,8 +351,7 @@ Next three are:
 Simple conclusion for Fig. 10-12: rates are higher among those who have no default, no personal and no housing loan. Probably it happens because they do not owe money for the bank and have more to invest. 
 
 
-
-![](business_analytics_final_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
+![](business_analytics_final_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
 
 
 ### contact, duration, campaign
@@ -363,9 +363,7 @@ Simple conclusion for Fig. 10-12: rates are higher among those who have no defau
 
 So, the clients were contacted mostly by cellular (n = 29285), another 2906 - by telephone. For the rest 13020 clients the `contact` communication type is unknown. 
 
-
-
-![](business_analytics_final_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
+![](business_analytics_final_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
 
 The median `duration` of last contact for subscribers was 7 minutes, while for others - between 2 and 3. What is interesting: for someone it took just 8 seconds to subscribe!
 
@@ -406,18 +404,15 @@ The median `duration` of last contact for subscribers was 7 minutes, while for o
 </table>
 
             
+![](business_analytics_final_files/figure-html/unnamed-chunk-18-1.png)<!-- -->
 
-
-
-![](business_analytics_final_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
-
-
-During the `campaign` *(Mean = 2.76, SD = 3.10, range = [1, 63])*, most of the clients have been contacted several times, while some - more than 50. Perhaps, such customers had additional questions, or problems, or asked to call back *(e.g. parents aren’t home)*. We’ll never know.  
+During the `campaign` *(Mean = 2.76, SD = 3.10, range = [1, 63])*, most of the clients have been contacted several times, while some - more than 50. Perhaps, such customers had additional questions, or problems, or asked to call back *(e.g. parents aren’t home)*. We’ll never know.    
 Fig. 16 shows the subscription rate depending on the number of contacts performed during this campaign and for this client. In general, the % decreases with the increase of number of calls. However, the rate for those who were contacted many-many times *(note: up to 32, not the max. value)* the sub. rate slightly increases. This may happen due to some outlier cases. Table itself shows the information about the `campaign` variable split by `y`.   
 
 At Fig.17 we can finally see some division: clients who were contacted less times had longer conversations and subscribed, so in general the duration of contact was higher for those who agreed. Clients contacted very often had shorter conversations and mostly declined (purple dots at the bottom). **Main point:** do not contact your clients **that** often, otherwise company may be considered as annoying, which in long term may lead to the churn of these customers!
 
-![](business_analytics_final_files/figure-html/unnamed-chunk-18-1.png)<!-- -->
+
+![](business_analytics_final_files/figure-html/unnamed-chunk-19-1.png)<!-- -->
 
 
 Well, we also have data on `month` and `day`. Let's take a look at these two! 
@@ -428,8 +423,7 @@ Well, we also have data on `month` and `day`. Let's take a look at these two!
 The highest subscription rate happened in March (Spring) and in September, October and December, the lowest - in Summer. No explainable pattern is observed for `day`, however, seems like most agree in the beginning & close to end of the month; wish we had data on year to detect weekday! *(perhaps, people have slightly more time on holidays)*
 
 
-
-![](business_analytics_final_files/figure-html/unnamed-chunk-19-1.png)<!-- -->
+![](business_analytics_final_files/figure-html/unnamed-chunk-20-1.png)<!-- -->
 
 
 #### pdays, previous, poutcome 
@@ -478,8 +472,7 @@ The most frequent value for `pdays` is "-1", which is a bit strange as how a num
 From the following plots, we can detect some sort of "seasonality" in terms of number of days passed from the last contact during a previous campaign. Seems like the previous campaigns were performed every 90 days (2-3 months) as the peaks are located at 90, 180, etc. days *(note: -1 is excluded from the Fig. 20)*.  
 It is also noticeable that a year ago a very small number of customers was reached. 
 
-
-![](business_analytics_final_files/figure-html/unnamed-chunk-21-1.png)<!-- -->
+![](business_analytics_final_files/figure-html/unnamed-chunk-22-1.png)<!-- -->
 
 - `previous` - number of contacts performed before this campaign and for this client (Mean = 0.58, SD = 2.30, range = [0, 275])      
 - `poutcome` - outcome of the previous marketing campaign    
@@ -491,23 +484,23 @@ It is also noticeable that a year ago a very small number of customers was reach
 As for the number of previous contacts, most of the clients were contacted 0 times, meaning that this is the first time they have been called.     
 The percentage of subscribed clients was the highest among those for whom the outcome of `previous` campaign was successfu: 64.7%! Perhaps, the campaign was similar, and the customers were satisfied with the service, thus, decided to continue. 
 
-
-![](business_analytics_final_files/figure-html/unnamed-chunk-22-1.png)<!-- -->
+![](business_analytics_final_files/figure-html/unnamed-chunk-23-1.png)<!-- -->
 
 
 
 ***
 
+#### summing up
 
-That's it for the plots. So, what are the main findings?  
+That's it for the plots. So, what are the **main findings**?  
 
 - the subscription rate is 12%   
 - it's higher for young and old clients, students and retired people    
-- better not to call too many times  
+- better not to call too many times!  
 - clients with no loans are more likely to subscribe a term deposit  
-- higher balance - higher chance to subscribe as well  
+- higher balance -- higher chance to subscribe as well
 
-
+***
 
 # **models**
 
@@ -520,7 +513,7 @@ In this section, I create two decision trees and a random forest. Then compare t
 ## decision tree
 
 Here I employ two methods of creating decision trees, which are supported by `caret` package. These are `ctree` and `rpart`. In sum, the first one performs better than the second, which seemed a bit odd in the beginning. By looking closer at the output, it is noticeable that the accuracy for both models is very-very similar. However, the recall score of the 1st model is higher, as well as the ROC-AUC.   
-I googled a bit and found that they represent implementations of different algorithms, which makes the difference in scores quite explainable [[3]](https://stats.stackexchange.com/questions/12140/conditional-inference-trees-vs-traditional-decision-trees). Thus, as the metrics are higher for `ctree`, I can conclude that this method performs better on the provided data, and this model is the best one among the provided two. 
+I googled a bit and found that they represent implementations of different algorithms, which makes the difference in scores quite explainable. Thus, as the metrics are higher for `ctree`, I can conclude that this method performs better on the provided data, and this model is the best one among the provided two. [[3]](https://stats.stackexchange.com/questions/12140/conditional-inference-trees-vs-traditional-decision-trees)
 
 
 ### decision tree (ctree)
@@ -554,6 +547,11 @@ As we have 88% of non-subscribed users, the baseline accuracy should be $\geq 88
 ## 
 ## ROC was used to select the optimal model using the largest value.
 ## The final value used for the model was mincriterion = 0.99.
+```
+
+
+```r
+#plot(one_tree$finalModel, type="simple")
 ```
 
 
@@ -633,19 +631,19 @@ More importantly, the performance on **test**:
 ## 
 ```
 
-And the main metric based on which I'm going to compare the models is ROC-AUC, which shows how well does the model distinguish one class from another. Higher the AUC *(and line closer to the left upper corner)*, the better is the model: perfect classifier has an AUC of 1, while 0.5 - no class separation capacity. Here it equals 90.39%, which is quite good!
+And the main metric based on which I'm going to compare the models is ROC-AUC, which shows how well does the model distinguish one class from another. Higher the AUC *(and line closer to the left upper corner)*, the better is the model: perfect classifier has an AUC of 1, while 0.5 - no class separation capacity. Here it equals **90.39%**, which is quite good!
 
 
 ```
 ## Area under the curve: 0.9039
 ```
 
-![](business_analytics_final_files/figure-html/unnamed-chunk-28-1.png)<!-- -->
+![](business_analytics_final_files/figure-html/unnamed-chunk-29-1.png)<!-- -->
 
 
 While making decision, the most important factors for the tree were`duration`, `contact`, `housing`. The least: `month`, `day`, `age` and `default`. 
 
-![](business_analytics_final_files/figure-html/unnamed-chunk-29-1.png)<!-- -->
+![](business_analytics_final_files/figure-html/unnamed-chunk-30-1.png)<!-- -->
 
 
 
@@ -747,7 +745,7 @@ On the **test** set the model performs in the same way - accuracy of 90% and 65%
 ## 
 ```
 
-Oh. And, consequently, AUC is just 76.3, which looks sad compared to an amazing score of 90.39!  
+Oh. And, consequently, AUC is just **76.3**, which looks sad compared to an amazing score of 90.39!  
 
 As a result, the conclusion about decision trees is that a `ctree` model performed better on this data than `rpart`.
 
@@ -756,12 +754,12 @@ As a result, the conclusion about decision trees is that a `ctree` model perform
 ## Area under the curve: 0.763
 ```
 
-![](business_analytics_final_files/figure-html/unnamed-chunk-32-1.png)<!-- -->
+![](business_analytics_final_files/figure-html/unnamed-chunk-33-1.png)<!-- -->
 
 
 The next plot shows the calculated variable importance for this model, which is different, filtering those with higher than 0.0 value. The most important ones are: `poutcome(success)` and `duration`. The least - related to months, days & the rest filtered, e.g. age, marital status other than married, etc. :)
 
-![](business_analytics_final_files/figure-html/unnamed-chunk-33-1.png)<!-- -->
+![](business_analytics_final_files/figure-html/unnamed-chunk-34-1.png)<!-- -->
 
 
 
@@ -778,6 +776,12 @@ Set up:
 - control: cross-validation, 3-fold   
 - be careful: this chunk took ~30 mins to fit (but then i saved the model to load it later -> fast knitting!) 
 
+
+
+```r
+rf_model_b = readRDS("_rf_model.rds")
+rf_model_b
+```
 
 ```
 ## Random Forest 
@@ -877,6 +881,10 @@ Now, take a closer look at the confusion matrix for **test** data. We have the f
 
 Also, can look at the rates.
 
+```r
+tn = cm_rf_test$table[1,1] ; fn = cm_rf_test$table[1,2] ; fp = cm_rf_test$table[2,1] ; tp = cm_rf_test$table[2,2]
+tpr = tp/(tp+fn) ; tnr = tn/(tn+fp) ; fpr = fp/(fp+tn) ; fnr = fn/(fn+tp)
+```
 
 ```
 ## [1] "TPR: 0.465468"
@@ -884,8 +892,6 @@ Also, can look at the rates.
 ## [1] "FPR: 0.038577"
 ## [1] "FNR: 0.534532"
 ```
-
-
 
 
 
@@ -898,42 +904,47 @@ Finally, the **AUC** has increased to **92.57**. Looks like we have a winner her
 ## Area under the curve: 0.9257
 ```
 
-![](business_analytics_final_files/figure-html/unnamed-chunk-38-1.png)<!-- -->
+![](business_analytics_final_files/figure-html/unnamed-chunk-39-1.png)<!-- -->
 
 
 The **most important** variable, again, is `duration`, followed by `balance`, `age`, `day` and `poutcome` (success). This means that a certain duration, balance, age, day of contact and success of previous campaign highly influence the model's decision. Let's go deeper in the next section!
 
-![](business_analytics_final_files/figure-html/unnamed-chunk-39-1.png)<!-- -->
+![](business_analytics_final_files/figure-html/unnamed-chunk-40-1.png)<!-- -->
 
 ![](https://i.kym-cdn.com/photos/images/newsfeed/000/531/557/a88.jpg)
 
 ## interpretation
 
-This section is devoted to explanation of model's individual predictions using `lime` package. In the final report, it's described in more detail.
+This section is devoted to explanation of model's individual predictions using `lime` package. 
 
 
 
 
-Here we have three cases where the random forest made the **correct predictions**. In all three, the most important feature was `duration`, but split on different values. Case 2809 was predicted as *not subscribed* because the conversation lasted less than 103 seconds, person was `aged` between 39 and 48, and the outcome of previous campaign was unknown. Though, two features contradicted to the selected label. These are `balance` higher than 1427 and `month (july)`.  
+Here we have three cases where the random forest made the **correct predictions**. In all three, the most important feature was `duration`, but split on different values. Case 2809 was predicted as *not subscribed* because the conversation lasted less than 103 seconds, person was `aged` between 39 and 48, and the outcome of previous campaign was unknown. Though, two features contradicted to the selected label. These are `balance` higher than 1427 and `month (july)`.    
+
 A client 5169 did not subscribe. Why? Well, we did not know the outcome of the previous campaign, he/she was middle aged, had small balance and was contacted in November, in which the overall subscription rate was rather low.  
-Another person 9027 subscribed a deposit! The model made this decision because the client previously successfully participated in the campaign, had a good call duration (which was enough to convince the customer). However, he or she had quite a small balance, and this is the variable that contradicts to the prediction of “subscribed” label.
 
-![](business_analytics_final_files/figure-html/unnamed-chunk-41-1.png)<!-- -->
-
-The main cause for **incorrect predictions** for the 3 selected cases was the `duration` longer than 319 seconds. Also, the wrong label was supported by `month` and `poutcome` features: the unknown result of the previous contact supports the "No" label.
+Another person 9027 subscribed a deposit! The model made this decision because the client previously successfully participated in the campaign, had a good call duration (which was enough to convince the customer). However, he or she had quite a small balance, and this is the variable that contradicts to the prediction of "subscribed" label.
 
 ![](business_analytics_final_files/figure-html/unnamed-chunk-42-1.png)<!-- -->
 
+The main cause for **incorrect predictions** for the 3 selected cases was the `duration` longer than 319 seconds. Also, the wrong label was supported by `month` and `poutcome` features: the unknown result of the previous contact supports the "No" label.  
+
+
+![](business_analytics_final_files/figure-html/unnamed-chunk-43-1.png)<!-- -->
 
 
 
 ***
 
 
+# **bayesian network**
 
-# **Bayesian network**
 
-
+```r
+library(Rgraphviz)
+library(gRain)
+```
 
 So, it's time to find factors that may increase the clients' chances to subscribe. As shown in the previous sections, top features differed among the presented models. However, the majority of them had `duration`, `balance`, `age`, `poutcome`, `contact`, `day`, `housing` on the list. Other socio-demographic characteristics of customers had zero or little importance.
 
@@ -941,7 +952,7 @@ In order to understand the situation and possible ties more clearly, let's take 
 
 1. **Term deposit** – a client locks his/her money for a certain period, and bank pays them a higher rate of interest on savings. The bank can invest the received money or lend to other clients and receive some interest rate from them. In other words, client subscribes for a term deposit, and the bank gets money that can be used for the company’s purposes, e.g. can be lend to other clients. This is an important **source for the bank's profit/capital**, and the institution should maintain balance between rates for term deposits and rates for loans. *(The interest rate – the amount a lender charges for the use of assets expressed as a percentage of the principal)*
 2. **Personal loan** –  bank lends money, customer buys something and pays the company later (e.g. for car, school fee)
-3. **Home loan** – in Russian - «ipoteka». A person has some money, bank lends the rest, and then a person pays interest on the loan for approx. 20-25 years [[4]](https://www.canstar.com.au/opinions/how-banks-work/), [[2]](https://www.investopedia.com/terms/t/termdeposit.asp)  
+3. **Home loan** – in Russian - «ipoteka». A person has some money, bank lends the rest, and then a person pays interest on the loan for approx. 20-25 years [[4]](https://www.canstar.com.au/opinions/how-banks-work/), [[5]](https://www.investopedia.com/terms/t/termdeposit.asp)  
 
 Okay, now it's time to proceed to the next sub-section -  preparation of the data. 
 
@@ -960,12 +971,11 @@ In order to create the Bayesian networks, numeric variables should be firstly cu
 
 It's clear from the plot that the subscription rate among people aged 65+ is the highest (42%), followed by age group 18-25. Clients from the middle age groups paid less attention to the campaign. This means that the bank should further target the youngest and more old age groups, as others showed quite little interest. As can be seen from the table below the plot, the bank mostly contacted people aged from 25-55 groups *(assuming that this is only a part of bank's entire database)*.
 
-
-![](business_analytics_final_files/figure-html/unnamed-chunk-44-1.png)<!-- -->
-
+![](business_analytics_final_files/figure-html/unnamed-chunk-45-1.png)<!-- -->
 
 
-**Balance**: may cut into the following (without creating too many groups):
+
+**Balance**: may cut into the following (without creating too many groups..):
 
 - clients with negative balance - perhaps they are less likely to have money that can be put into deposit (<$0)  
 - those who have from 0 to median balance (0-$450)  
@@ -976,15 +986,12 @@ It's clear from the plot that the subscription rate among people aged 65+ is the
 The conclusion here is pretty straightforward: clients with higher balance subscribed more than those with low balance. Perhaps, they have some extra money and the interest rate is higher for those who can afford a bigger term deposit. So it's better to focus on clients whose balance is at least not negative, or even better.
 
 
-
 ```
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   -8019      72     448    1362    1428  102127
 ```
 
-
-
-![](business_analytics_final_files/figure-html/unnamed-chunk-45-1.png)<!-- -->
+![](business_analytics_final_files/figure-html/unnamed-chunk-46-1.png)<!-- -->
 
 
 **Duration**, split based on the distribution & general knowledge. 
@@ -996,9 +1003,7 @@ The conclusion here is pretty straightforward: clients with higher balance subsc
 
 This feature was one of the most important for the models. And here comes a short note: actually, `duration` is not a very good variable for the model in real life as the length of a conversation is not known before a call is performed. 
 
-
-
-![](business_analytics_final_files/figure-html/unnamed-chunk-46-1.png)<!-- -->
+![](business_analytics_final_files/figure-html/unnamed-chunk-47-1.png)<!-- -->
 
 
 
@@ -1011,7 +1016,14 @@ As for connections to `y`: the link from `balance` seems correct, while `housing
 
 
 
-![](business_analytics_final_files/figure-html/unnamed-chunk-47-1.png)<!-- -->
+```r
+set.seed(17)
+df_bn_first = data.frame(df_bn %>% dplyr::select(housing, loan, default, balance, y)) %>% na.omit()
+bnStructure = bnlearn::hc(df_bn_first)
+graphviz.plot(bnStructure, highlight = list(nodes="y", fill="#55acee", col="white"))
+```
+
+![](business_analytics_final_files/figure-html/unnamed-chunk-48-1.png)<!-- -->
 
 Furthermore, link between `housing` and `loan` looks not very reliable. Well, I'm not a pro in banking, but previously I went to Google to understand whether such a connection between two loans is valid at all. As understood: 
 
@@ -1020,7 +1032,6 @@ Furthermore, link between `housing` and `loan` looks not very reliable. Well, I'
 - **a housing loan** is when a person borrows money to buy a house; 
 
 Then I looked at the data, and some customers with a housing loan did not have a personal loan. Looks like it's better to delete this connection as it becomes too complex to interprete, at least.
-
 
 
 ```
@@ -1039,6 +1050,9 @@ Now the situation is the following: `balance` can directly influence the decisio
 In sum, here I add ties because `balance` may influence the decision to subscribe a term deposit differently if a person has some loans or debts. 
 
 
+```r
+df_bn %>% dplyr::filter(default=="yes") %>% group_by(default, housing, loan) %>% dplyr::select(default, housing, loan) %>% dplyr::count()
+```
 
 ```
 ## # A tibble: 4 x 4
@@ -1053,7 +1067,7 @@ In sum, here I add ties because `balance` may influence the decision to subscrib
 
 
 
-![](business_analytics_final_files/figure-html/unnamed-chunk-50-1.png)<!-- -->
+![](business_analytics_final_files/figure-html/unnamed-chunk-51-1.png)<!-- -->
 
 
 ### probabilities
@@ -1061,8 +1075,16 @@ In sum, here I add ties because `balance` may influence the decision to subscrib
 Let's calculate probabilities on the data and look what we have here!
 
 
+```r
+net_first = bn.fit(bn, data = data.frame(df_bn %>% dplyr::select(housing, loan, default, balance, y)))
+```
+
 So, the probability of subscription based on our small dataset is 11.49%. 
 
+```r
+set.seed(17)
+cpquery(net_first, event = (y == "yes"), evidence = TRUE)
+```
 
 ```
 ## [1] 0.1149
@@ -1084,7 +1106,6 @@ What about different segments?
 The probability of subscription decreases to 0.079 if a person has a housing loan, and increases to 0.16 if a client doesn't have it. So, this confirms the suggestion that having loans negatively influences the decision to subscribe a term deposit.
 
 
-
 ```
 ## [1] "P. if a personal has a housing loan: 0.078793"
 
@@ -1092,10 +1113,10 @@ The probability of subscription decreases to 0.079 if a person has a housing loa
 ```
 
 
-And what if a person has a default, personal loan and housing loan?  
+And what if a person has a default, personal loan and housing loan?    
+
 - for clients with a default and two types of loans the result was dependent on the random seed - sometimes the result was 0, and sometimes 0.07 (due to a small number of observations)   
 - for those who did not have it the probability is more stable - approximately 0.18-0.20   
-
 
 ```
 ## [1] "P. if has: 0.071429"
@@ -1110,28 +1131,27 @@ And what if a person has a default, personal loan and housing loan?
 After more thinking and drawing, I came up with the following structure and added more variables that were identified as important during EDA and model building. 
 
 
-
-
-![](business_analytics_final_files/figure-html/unnamed-chunk-56-1.png)<!-- -->
-
-
-1. Ties between `balance`, `housing`, `loan` and `default`, as described previously    
-2. `age`: young and old people had higher subscription rates compared to middle age groups    
-3. another tie that I've added is between `age` and `balance`. The logic behind that: younger people may have less money as they probably had less time to earn a large amount :). This is not very visible on the plots (see figures below), but seems like at least clients younger than 25 do not have super big numbers on their accounts.         
-4. `poutcome` *(outcome of the previous marketing campaign)*: according to the Fig. 23, 64.7% of clients for whom the previous campaign was marked as «success» have subscribed a term deposit. This is a very good number compared to rates for those with failure, other & unknown: 12.6%, 16.7%, 9.2% respectively    
-
-
-
 ![](business_analytics_final_files/figure-html/unnamed-chunk-57-1.png)<!-- -->
 
+
+The model has the following structure: 
+
+1. `balance` can directly influence the decision to subscribe a term deposit as in order to do so, client needs some money. Also, the interest rate may be higher for bigger amounts, so the **conditions** may look more attractive for such clients. It is also is related to `default`, `housing` and `loan`. In case of `default`, having a negative balance mostly means that a client probably has no money to pay for something, e.g. housing loan. However, having a default does not necessary mean that a person has a `loan` or `housing`, as shown in the table below. As far as I know, people usually take loans if they do not have enough money to buy something they want, so, perhaps, if they have lower balance, it's more likely that they will take a loan.   
+2. `age`: young and old people had higher subscription rates compared to middle age groups    
+3. `age` and `balance`: younger people may have less money as they probably had less time to earn a large amount :). This is not very visible on the plots, but seems like at least clients younger than 25 do not have super big numbers on their accounts         
+4. `poutcome` *(outcome of the previous marketing campaign)*: 64.7% of clients for whom the previous campaign was marked as «success» have subscribed a term deposit. This is a very good number compared to rates for those with failure, other & unknown: 12.6%, 16.7%, 9.2% respectively    
 
 
 ### what-if and policy
 
-Let's examine some variables and "what-if" scenarios. 
+Now let's examine some variables and "what-if" scenarios. 
 
 
-Consistent with EDA, the highest probability of subscribing a term desposit is for those aged 18-25 & 65-100. 
+```r
+net_second = bn.fit(bn, data = data.frame(df_bn %>% dplyr::select(age, balance, default, housing, loan, poutcome, y)))
+```
+
+Based on the calculated probabilities, and consistent with EDA, the highest probability of subscribing a term desposit is for those aged 18-25 & 65-100.
 
 ```
 ##           y
@@ -1146,6 +1166,9 @@ Consistent with EDA, the highest probability of subscribing a term desposit is f
 
 Higher balance - higher probability of subscribing a term desposit. 
 
+```r
+querygrain(BBNnet, nodes=c("y", "balance"), type="conditional")
+```
 
 ```
 ##               y
@@ -1157,8 +1180,11 @@ Higher balance - higher probability of subscribing a term desposit.
 ##   very high    0.8441843 0.15581571
 ```
 
-Better to contact those without housing loan.
+Better to contact those without housing loan: 0.15 compared to 0.09.
 
+```r
+querygrain(BBNnet, nodes=c("y", "housing"), type="conditional")
+```
 
 ```
 ##        y
@@ -1167,8 +1193,11 @@ Better to contact those without housing loan.
 ##     yes 0.9096405 0.09035946
 ```
 
-And without personal loan.
+And without personal loan: probability of subscription rises to 0.13, compared to 0.08 for those with a loan.
 
+```r
+querygrain(BBNnet, nodes=c("y", "loan"), type="conditional")
+```
 
 ```
 ##      y
@@ -1177,66 +1206,87 @@ And without personal loan.
 ##   yes 0.9147056 0.08529437
 ```
 
- 
-***
 
-Now a bit more concrete cases with several parameters. 
-Starting point for this model is also 0.12.   
-**First situation:** a client aged 18-25, high balance. The probability of subscription is 25%, not bad. 
+#### what if
+
+Starting probability of subscription for this model is  0.12.  
+
+**First situation:** a client aged 18-25, high balance. The probability is 25%, not bad. 
+
+```r
+set.seed(17)
+cpquery(net_second, event = (y == "yes"), evidence = (age == "(17,25]" & balance=="high"))
+```
 
 ```
 ## [1] 0.2535211
 ```
 
-**Previous outcome** is also success? Then the probability increases to 0.5. 
+**Previous outcome** is success? Then the probability is 0.8! 
+
+```r
+set.seed(42)
+cpquery(net_second, event = (y == "yes"), evidence = (age == "(17,25]" & balance=="high" & poutcome=="success"))
+```
 
 ```
 ## [1] 0.8
 ```
 
 
-What if a person is middle aged but still with above median balance? Then the probability decreases to 0.09. However, if such client has higher balance, the probability rather stays near 0.12.
+What if a person is middle aged but still with above median balance? Then the probability decreases to 0.09. 
 
+```r
+set.seed(42)
+cpquery(net_second, event = (y == "yes"), evidence = (age == "(35,45]" & balance=="above median"))
+```
 
 ```
 ## [1] 0.09485816
-
-## [1] 0.1196984
 ```
 
+However, if such client has higher balance, the probability rather stays near 0.12.
+
+```r
+set.seed(42)
+cpquery(net_second, event = (y == "yes"), evidence = (age == "(35,45]" & balance=="high"))
+```
+
+```
+## [1] 0.1196984
+```
 
 ## final policy
 
 Overall, the company should introduce some changes that may influence campaign's performance, according to the previously presented models and tables.  
 
-- Focus more on young people, who start to get involved into the banking sphere and have some money that they can invest into a term deposit. If everything goes well, then, maybe later in life they will take a housing loan in your bank?    
+- Focus more on young people, who start to get involved into the banking sphere and have some money that they can invest into a term deposit. If everything goes well, then, maybe later in life they will take a housing loan in your bank?   
 - Oldest age groups should take more attention as well. They have high balance and showed a high interest in subscribing term deposits.   
 - Clients for whom the previous campaign was successful subscribed more often as well, meaning that the "successful" customer database should be definitely targeted   
 - It's better to contact customers without loans. They do have money that can be invested as a term deposit -> good for the bank  
 
-
+***
 
 # **conclusion**
-In this report, I've described all the steps that I took in order to complete the task. 
+In this report, I've described all the steps that I took in order to complete the task. Firstly, examined the dataset in the EDA section. Then created 3 models, and random forest showed the best results, and examined a few cases using `lime` package. The last parts included creation if Bayesian networks in order to conduct what-if analysis and propose a policy. 
 
-**Existing situation**   
-Firstly, examined the dataset in the EDA section. The current subscription rate is 12%, meaning that 12% of the clients agreed for a term deposit. Main factors based on which this rate differs are: age, duration of the call, having loans. The rate also increased for clients with higher balance and for those with previously successful campaign.   
+**Existing situation**    
+The current subscription rate is 12%, meaning that 12% of the clients agreed for a term deposit. Main factors based on which this rate differs are: `age`, `duration` of the call, having loans. The rate also increased for clients with higher balance and for those with previously successful campaign. 
 
-**ML**     
-Then created 3 models, and examined a few cases using `lime` package. 
+**ML**   
 The best model in ML section was random forest, showing an AUC of almost 93, which means that the model was close to being a perfect classifier *(max. value is 1)*. The most important factors were: `duration`, `balance`, `age`, `day` and `poutcome (success)`.   
 
+**policy of subscription rate improvement**   
+The rates may be increased by changing the focus from middle age groups to clients aged 18-25 and 65+, as they mostly do not have loans. The latter also have higher balance, which is more profitable for the bank. Clients for whom the previous campaign was successful subscribed more often as well, meaning that the "successful" customer database should be definitely targeted. Overall, such changes may impove the rates to at least 0.54 for whom the outcome of previous campaign is unknown. 
 
-**policy of subscription rate improvement**     
-The last parts included creation of Bayesian networks in order to conduct some sort of what-if analysis and propose a improvements. The rates may be increased by changing the focus from middle age groups to clients aged 18-25 and 65+, as they mostly do not have loans. The latter also have higher balance, which is more profitable for the bank. Clients for whom the previous campaign was successful subscribed more often as well, meaning that the “successful” customer database should be definitely targeted. Overall, such changes may impove the rates to ~ 0.54 for whom the outcome of previous campaign is unknown.   
-``` 
+```
 ## [1] 0.5454545
 ```
 
 
 
-
 # **references**
+
 [[1] Bank Marketing Dataset](https://archive.ics.uci.edu/ml/datasets/Bank+Marketing)   
 [[2] Term Deposit Definition](https://www.investopedia.com/terms/t/termdeposit.asp)   
 [[3] Conditional inference trees vs traditional decision trees](https://stats.stackexchange.com/questions/12140/conditional-inference-trees-vs-traditional-decision-trees)   

@@ -1,14 +1,14 @@
-# **Searching for the Target Group** 🎯
+# **searching for the target group** 🎯
 
 The goal of small research is to analyze the survey among young people and produce recommendations for a Slovak start-up company on two main points: 
 
-> *how to frame the ad campaign?*   
-> *who to target with the products?*  
+> *how to frame the ad campaign?*    
+> *who to target with the products?*   
 
 The company offers a wide range of products, however, here the focus is on the new **superfood delivery**. 
 
 
-## **data**
+# **data**
 
 
 
@@ -20,8 +20,7 @@ Before examining the data and building a Bayesian network, a nice idea is to sea
 > *is there any existing research on the superfood?*    
 > *who buys superfood?*  
 
-
-#### what is superfood 
+#### > what is superfood 
 
 According to the [Harvard Health Blog](https://www.health.harvard.edu/blog/10-superfoods-to-boost-a-healthy-diet-2018082914463), superfood is:  
 
@@ -48,7 +47,7 @@ According to the [Harvard Health Blog](https://www.health.harvard.edu/blog/10-su
 Summing up, seems like an ideal **potential customer** may be someone who follows a healthy lifestyle, loves fruits & vegetables (more specific food preferences and requests), likely follows the trends (maybe even in tech, you know: grabbing a smoothie after a long practice and closing activity rings on Apple Watch..). And, perhaps, a female. But targeting by gender is rather criticized lately, so it's better not to do that, at least with the superfood delivery [[4]](https://www.wsj.com/articles/facebook-axes-age-gender-and-other-targeting-for-some-sensitive-ads-11553018450). Actually, sounds like Gen Z or millennials.  
 
 
-#### who buys 🤔
+#### > who buys 🤔
 
 Based on [Australian](http://www.roymorgan.com/findings/7602-food-delivery-services-march-2018-201805240625) publication, 22.5% of metrotechs use food delivery services, and this is the highest percentage among other categories identified [here](http://www.roymorgan.com/products/helix-personas).
 
@@ -74,24 +73,18 @@ The dataset contains 150 variables that may be split into the following groups:
 As the aim of this research is to find a target group for the new superfood delivery, music & movie preferences & phobias are less likely to influence the adoption of such product and, at least on this stage, can be dropped. As for other categories, I've selected questions related to healthy lifestyle, attitude to animals and spendings on healthy food. The latter is selected as an "outcome" variable because it directly relates to whether a person is willing to spend money on good & healthy food, i.e. superfood 🍏. Also meaning that it would best predict the adoption of the superfood delivery app as it implies delivering the high quality & healthy products. 
 
 
-
+```r
+yps_r = read_csv("young-people-survey/columns.csv")
+yps_c = read_csv("young-people-survey/responses.csv")
 ```
-## # A tibble: 6 x 2
-##   original                    short                   
-##   <chr>                       <chr>                   
-## 1 I enjoy listening to music. Music                   
-## 2 I prefer.                   Slow songs or fast songs
-## 3 Dance, Disco, Funk          Dance                   
-## 4 Folk music                  Folk                    
-## 5 Country                     Country                 
-## 6 Classical                   Classical music
-```
-
 
 
 > "I will happily pay more money for good, quality or healthy food" - the selected **outcome variable** among those available in the survey, which would best predict the adoption of the superfood delivery. 
 
 In the next section, I present the hypotheses and, based on them, create a Bayesian network.
+
+
+
 
 
 
@@ -158,27 +151,29 @@ In the next section, I present the hypotheses and, based on them, create a Bayes
 </table>
 
 
-## **Bayesian network**
+
+# **bayesian network**
 
 ### data preparation
 
 The first step before proceeding to the creation of the Bayesian network is variables selection. In total, I ended up with the 9 variables related to demographic information, bad habits, healthy eating and spendings on such eating. Further I removed rows with NAs, the final dataset resulting into 983 observations & 9 columns. 
 
+```r
+bn_yps = yps_c %>% dplyr::select("Age", "Education","Smoking", "Alcohol", "Health", "Healthy eating", "Eating to survive", "Energy levels",  "Spending on healthy eating") %>% na.omit()
+kableExtra::kable(head(bn_yps), format = "markdown")
+```
 
 
-```
-## # A tibble: 6 x 9
-##     Age Education Smoking Alcohol Health `Healthy eating` `Eating to surv…
-##   <dbl> <chr>     <chr>   <chr>    <dbl>            <dbl>            <dbl>
-## 1    20 college/… never … drink …      1                4                1
-## 2    19 college/… never … drink …      4                3                1
-## 3    20 secondar… tried … drink …      2                3                5
-## 4    22 college/… former… drink …      1                3                1
-## 5    20 secondar… tried … social…      3                4                1
-## 6    20 secondar… never … never        3                2                2
-## # … with 2 more variables: `Energy levels` <dbl>, `Spending on healthy
-## #   eating` <dbl>
-```
+
+| Age|Education               |Smoking       |Alcohol        | Health| Healthy eating| Eating to survive| Energy levels| Spending on healthy eating|
+|---:|:-----------------------|:-------------|:--------------|------:|--------------:|-----------------:|-------------:|--------------------------:|
+|  20|college/bachelor degree |never smoked  |drink a lot    |      1|              4|                 1|             5|                          3|
+|  19|college/bachelor degree |never smoked  |drink a lot    |      4|              3|                 1|             3|                          2|
+|  20|secondary school        |tried smoking |drink a lot    |      2|              3|                 5|             4|                          2|
+|  22|college/bachelor degree |former smoker |drink a lot    |      1|              3|                 1|             2|                          1|
+|  20|secondary school        |tried smoking |social drinker |      3|              4|                 1|             5|                          4|
+|  20|secondary school        |never smoked  |never          |      3|              2|                 2|             4|                          4|
+
 
 Transforming to factors and mapping the levels:  
 
@@ -190,6 +185,9 @@ Transforming to factors and mapping the levels:
   - 27 - 30 - (~ job/starting family)    
  
 
+```r
+summary(bn_yps$Age)
+```
 
 ```
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
@@ -198,8 +196,7 @@ Transforming to factors and mapping the levels:
 
 
 
-Next, the basic statistics of the data, showing the number of (1) factor levels, (2) number of observations in each.   
-
+Next, the basic statistics of the data, showing the number of (1) factor levels, (2) number of observations in each. 
 
 
 
@@ -216,21 +213,34 @@ Next, the basic statistics of the data, showing the number of (1) factor levels,
 ##   - Spending on healthy eating: 5 levels: Strongly Disagree (n = 40); Disagree (n = 131); Neutral (n = 279); Agree (n = 317) and Strongly Agree (n = 216)
 ```
 
-What are the main parts here? Well, most of the responses for the selected variables were received from 19-22 y.o., next largest age group - 15-18. The 611 studied in secondary school, 204 - college/bachelor degree. A few with doctorate degree are presented here as well! Most of the respondents have tried smoking (n=424), while 184 are currently doing that, 174 stopped and 201 never tried. What is interesting - 66% consider themselves as social drinkers (is this college life).  
+
+What are the main parts here?  
+
+- most of the responses for the selected variables were received from 19-22 y.o., next largest age group - 15-18  
+- the 611 studied in secondary school, 204 - college/bachelor degree. A few with doctorate degree are presented here as well   
+- most of the respondents have tried smoking (n=424), while 184 are currently doing that, 174 stopped and 201 never tried  
+- what is interesting - 66% consider themselves as social drinkers (is this college life).  
+
+
+![](ba_task_2_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
 
 
 
+Mostly, young people do not eat just to survive. However, 170 agreed (& strongly) with this statement, and probably represent the audience that we do not want to target as they don't like food that much. Half (496) of the respondents neutrally estimated the "I live a very healthy lifestyle", i.e. neither agreed not disagreed. Though, 231 and 45 agreed and strongly agreed. And these are the ones that better be targeted, I guess!  Healthy lifestylers need heathy food. Good finding: students mostly do feel energetic.  
 
 
-![](business_analytics_final_files/figure-html/unnamed-chunk-75-1.png)<!-- -->
 
-Mostly, young people do not eat just to survive. However, 170 agreed (& strongly) with this statement, and probably represent the audience that we do not want to target as they don't like food that much. Half (496) of the respondents neutrally estimated the *"I live a very healthy lifestyle"*, i.e. neither agreed not disagreed. Though, 231 and 45 agreed and strongly agreed. And these are the ones that better be targeted, I guess!  Healthy lifestylers need heathy food. Good finding: students mostly do feel energetic.  
+![](ba_task_2_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
 
-![](business_analytics_final_files/figure-html/unnamed-chunk-76-1.png)<!-- -->
 
-As for the outcome, the majority agreed that they would happily pay more money for good, quality or healthy food, nice!  
 
-![](business_analytics_final_files/figure-html/unnamed-chunk-77-1.png)<!-- -->
+As for the **outcome**, the **majority agreed** that they would happily pay more money for good, quality or healthy food, nice!
+
+
+
+![](ba_task_2_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
+
+
 
 
 
@@ -249,7 +259,7 @@ The hypotheses behind that are as following:
 9. `Spending on healthy eating` - shows whether and how much a person would spend on such food?    
 
 
-![](business_analytics_final_files/figure-html/unnamed-chunk-78-1.png)<!-- -->
+![](ba_task_2_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
 
 For simplicity, split variables into `"rather_yes"` (agrees) and `"rather no"` (neutral or disagrees)
 
@@ -258,8 +268,11 @@ For simplicity, split variables into `"rather_yes"` (agrees) and `"rather no"` (
 ### fitting & examining
 
 
-The probability of subscription based on our small dataset is 0.49%. 
+```r
+net_yps = bn.fit(bn, data = data.frame(bn_yps))
+```
 
+The probability of subscription based on our small dataset is 0.49%. 
 ```
 ## [1] 0.4916
 ```
@@ -275,7 +288,8 @@ Let's look at several combinations. Some of them present ones that are suitable 
 ```
 
 2. Similar situation: caring about healthy lifestyle, aged 19-22, but is a social drinker:   
-     - the probability decreases to 0.5, meaning that social drinkers have lower probability of subscription to the service. Logical as alcohol is super bad for health  
+  - the probability decreases to 0.5, meaning that social drinkers have lower probability of subscription to the service. Logical as alcohol is super bad for health  
+
 
 
 ```
@@ -285,7 +299,6 @@ Let's look at several combinations. Some of them present ones that are suitable 
 3. Does not care about health, has bad habits, (still does not eat for survival): the probability lowers to 0.44! 
   
   
-
 ```
 ## [1] 0.4444444
 ```
@@ -326,7 +339,7 @@ Bad habits. Firstly, let's look at smoking. Seems like it does not influence the
 ##   tried smoking  0.4629230  0.5370770
 ```
 
-So does the alcohol! Turned out to be quite surprising: not much difference here as well. This leads to the conclusion that bad habits do not relate to spendings on health that much.
+So does the alcohol! Thi turned out to be quite surprising: not much difference here as well. This leads to the conclusion that bad habits do not relate to spendings on health that much.
 
 
 ```
@@ -337,7 +350,7 @@ So does the alcohol! Turned out to be quite surprising: not much difference here
 ##   social drinker 0.4628463  0.5371537
 ```
 
-Eating healthy? Then the probability increases from 0.48 to 0.69. People who follow healthy diets are willing to pay more for good & healthy food.  
+Eating healthy? Then the probability increases from 0.48 to 0.69! People who follow healthy diets are willing to pay more for good & healthy food.  
 
 
 ```
@@ -356,7 +369,7 @@ Those who eat for survival also do have lower probability of the service adoptio
 ##        rather_yes 0.5534447  0.4465553
 ```
 
-What about age? Well, not much difference here too. However, it's better to focus on people from 15 to 26. 
+What about age? Well, not much difference here too. However, it's better to focus on people from, 15 to 26. 
 
 ```
 ##        spending_on_healthy_eating
@@ -389,4 +402,3 @@ guess now i'm closer to being a healthy analyst.
 
 
 ![](https://emojis.slackmojis.com/emojis/images/1495224255/2288/christmas_parrot.gif?1495224255) 
-
