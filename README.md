@@ -18,7 +18,7 @@ Business Analytics course homework assignments
 
 **View as:**
 - [markdown](first_homework/ba.md)
-- [html](first_homework/ba.html) 
+- [html](http://actuallyykatie.github.io/ba/first_homework/ba.html) 
 
 
 ## project 2.1: predicting subscription
@@ -35,7 +35,7 @@ Business Analytics course homework assignments
 
 **View as:**
 - [markdown](exam_work/task_1.md)
-- [html](exam_work/task_1.html) 
+- [html](http://actuallyykatie.github.io/ba/exam_work/task_1.html) 
 
 
 
@@ -52,4 +52,4 @@ Business Analytics course homework assignments
 
 **View as:**
 - [markdown](exam_work/task_2.md)
-- [html](exam_work/task_2.html) 
+- [html](http://actuallyykatie.github.io/ba/exam_work/task_2.html) 
